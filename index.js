@@ -19,6 +19,7 @@ db.sequelize.sync({force: false}).then(() => {
 });
 
 require('./routes/users.routes')(app);
+require('./routes/absences.routes')(app);
 
 app.listen(port, () => {
   console.log('app runing on port %d', port);
