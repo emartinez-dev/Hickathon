@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const db = require('./models');
 
 const app = express();
 const port = 3000;
@@ -10,6 +11,12 @@ app.use(
     extended: true,
   }),
 );
+
+db.sequelize.sync().then(() => {
+  console.log('Sync OK');
+}).catch((err) => {
+  console.log('Sync failed: %s', err);
+});
 
 app.get('/', (request, response) => {
   response.json({
