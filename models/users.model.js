@@ -1,7 +1,20 @@
 const { DataTypes } = require('sequelize');
+const crypto = require('crypto');
+
+const sha256 = (x) => crypto.createHash('sha256').update(x, 'utf-8').digest('hex');
 
 module.exports = (sequelize, Sequelize) => {
   const User = sequelize.define('users', {
+    login: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    password: {
+      type: DataTypes.STRING,
+      set(value) {
+        this.setDataValue('password', sha256(value));
+      },
+    },
     firstName: {
       type: DataTypes.STRING,
       allowNull: false,
