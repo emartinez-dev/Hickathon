@@ -47,6 +47,38 @@ exports.findOne = (req, res) => {
     });
 };
 
+exports.findParams = (req, res) => {
+  const {
+    startDate,
+    endDate,
+    status,
+    userId,
+  } = req.body;
+
+  const whereObj = {};
+  if (startDate) { whereObj.startDate = startDate; }
+  if (endDate) { whereObj.endDate = endDate; }
+  if (status) { whereObj.status = status; }
+  if (userId) { whereObj.userId = userId; }
+
+  Absence.findAll({
+    where: whereObj,
+  })
+    .then((data) => {
+      if (data) {
+        res.send(data);
+      } else {
+        res.status(404).send({
+          message: 'Couldn\'t find Absence with params introduced.',
+        });
+      }
+    }).catch((err) => {
+      res.status(500).send({
+        message: err.message || 'Error getting Absence with params introduced.',
+      });
+    });
+};
+
 exports.update = (req, res) => {
   const { id } = req.params;
   const {

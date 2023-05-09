@@ -49,6 +49,40 @@ exports.findOne = (req, res) => {
     });
 };
 
+exports.findParams = (req, res) => {
+  const {
+    email,
+    firstName,
+    lastName,
+    role,
+    remainingDays,
+  } = req.body;
+
+  const whereObj = {};
+  if (email) { whereObj.email = email; }
+  if (firstName) { whereObj.firstName = firstName; }
+  if (lastName) { whereObj.lastName = lastName; }
+  if (role) { whereObj.role = role; }
+  if (remainingDays) { whereObj.remainingDays = remainingDays; }
+
+  User.findAll({
+    where: whereObj,
+  })
+    .then((data) => {
+      if (data) {
+        res.send(data);
+      } else {
+        res.status(404).send({
+          message: 'Couldn\'t find User with params introduced.',
+        });
+      }
+    }).catch((err) => {
+      res.status(500).send({
+        message: err.message || 'Error getting User with params introduced.',
+      });
+    });
+};
+
 exports.update = (req, res) => {
   const { id } = req.params;
   const {

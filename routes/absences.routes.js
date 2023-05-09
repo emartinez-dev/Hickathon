@@ -4,6 +4,7 @@ module.exports = (app) => {
 
   router.get('/', Absences.findAll);
   router.post('/create', Absences.create);
+  router.post('/find', Absences.findParams);
   router.get('/:id', Absences.findOne);
   router.put('/:id', Absences.update);
   router.delete('/:id', Absences.delete);
