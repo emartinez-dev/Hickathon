@@ -5,9 +5,12 @@ const sha256 = (x) => crypto.createHash('sha256').update(x, 'utf-8').digest('hex
 
 module.exports = (sequelize, Sequelize) => {
   const User = sequelize.define('users', {
-    login: {
+    email: {
       type: DataTypes.STRING,
       allowNull: false,
+      validate: {
+        isEmail: true,
+      },
     },
     password: {
       type: DataTypes.STRING,

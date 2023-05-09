@@ -4,7 +4,7 @@ const User = db.users;
 
 exports.create = (req, res) => {
   const user = {
-    login: req.body.login,
+    email: req.body.email,
     password: req.body.password,
     firstName: req.body.firstName,
     lastName: req.body.lastName,
@@ -52,7 +52,7 @@ exports.findOne = (req, res) => {
 exports.update = (req, res) => {
   const { id } = req.params;
   const {
-    login, firstName, password, lastName, role, remainingDays,
+    email, firstName, password, lastName, role, remainingDays,
   } = req.body;
 
   const user = User.findByPk(id);
@@ -61,7 +61,7 @@ exports.update = (req, res) => {
   }
   User.update(
     {
-      login, firstName, password, lastName, role, remainingDays,
+      email, firstName, password, lastName, role, remainingDays,
     },
     { where: { id } },
   );
