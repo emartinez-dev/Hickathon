@@ -12,4 +12,11 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
+db.users = require('./users.model')(sequelize, Sequelize);
+db.absences = require('./absences.model')(sequelize, Sequelize);
+
+db.users.hasMany(db.absences, {
+  foreignKey: 'userId',
+});
+
 module.exports = db;
