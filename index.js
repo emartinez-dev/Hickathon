@@ -12,17 +12,13 @@ app.use(
   }),
 );
 
-db.sequelize.sync().then(() => {
+db.sequelize.sync({force: false}).then(() => {
   console.log('Sync OK');
 }).catch((err) => {
   console.log('Sync failed: %s', err);
 });
 
-app.get('/', (request, response) => {
-  response.json({
-    info: 'Express API running!',
-  });
-});
+require('./routes/users.routes')(app);
 
 app.listen(port, () => {
   console.log('app runing on port %d', port);
