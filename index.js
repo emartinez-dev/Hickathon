@@ -12,6 +12,8 @@ app.use(
   }),
 );
 
+app.use(express.static('./frontend/dist/frontend'));
+
 db.sequelize.sync({force: false}).then(() => {
   console.log('Sync OK');
 }).catch((err) => {
