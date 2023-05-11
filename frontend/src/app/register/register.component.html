@@ -1,31 +1,50 @@
-<div fxLayoutAlign="center center" fxFlexFill>
+<div fxLayoutAlign="center center" fxFlexFill style="background-color: lightgray;">
   <mat-card fxFlex="50">
+    <mat-toolbar color="primary" fxLayoutAlign="center center">
+        <span>Sign up</span>
+    </mat-toolbar>
     <mat-card-header fxLayoutAlign="center center">
-      <mat-card-title>
-        Register
-      </mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <form fxLayoutAlign="stretch" fxLayout="column" [formGroup]="formGroup"
         (ngSubmit)="register()">
-       <mat-form-field>
+        <mat-form-field>
+          <mat-label>Email</mat-label>
           <input matInput placeholder="Email" formControlName="email">
+          <mat-error *ngIf="formGroup.controls">Please enter a valid email address</mat-error>
         </mat-form-field>
         <mat-form-field>
+          <mat-label>Password</mat-label>
           <input matInput type="password" placeholder="Password"
             formControlName="password">
+          <mat-error *ngIf="formGroup.controls">Password must be longer then 8 characters</mat-error>
         </mat-form-field>
         <mat-form-field>
+          <mat-label>First name</mat-label>
           <input matInput placeholder="First name" formControlName="firstName">
+          <mat-error *ngIf="formGroup.controls">First name can't be empty</mat-error>
         </mat-form-field>
         <mat-form-field>
+          <mat-label>Last name</mat-label>
           <input matInput placeholder="Last name" formControlName="lastName">
+          <mat-error *ngIf="formGroup.controls">Last name can't be empty</mat-error>
         </mat-form-field>
         <mat-form-field>
-          <input matInput placeholder="Role" formControlName="role">
-        </mat-form-field>
-        <button mat-raised-button color="primary" type="submit">Login</button>
-      </form>
-    </mat-card-content>
-  </mat-card>
-</div>
+          <mat-label>Role</mat-label>
+          <mat-select formControlName="role" name="role">
+            <mat-option value="employee">
+              Employee
+            </mat-option>
+            <mat-option value="manager">
+              Manager
+            </mat-option>
+            </mat-select>
+            <mat-error *ngIf="formGroup.controls">Please select a role</mat-error>
+          </mat-form-field>
+          <button mat-raised-button color="primary" type="submit">Register</button>
+        <p style="margin-top: 1em; text-align: center;"> Already registered? </p>
+        <button mat-raised-button color="secondary" (click)="router.navigate(['/login'])">Back to login</button>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>

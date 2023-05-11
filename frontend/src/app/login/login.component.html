@@ -1,21 +1,27 @@
-<div fxLayoutAlign="center center" fxFlexFill>
+<div fxLayoutAlign="center center" fxFlexFill style="background-color: lightgray;">
   <mat-card fxFlex="50">
+    <mat-toolbar color="primary" fxLayoutAlign="center center">
+        <span>Sign in</span>
+    </mat-toolbar>
     <mat-card-header fxLayoutAlign="center center">
-      <mat-card-title>
-        Login
-      </mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <form fxLayoutAlign="stretch" fxLayout="column" [formGroup]="formGroup"
         (ngSubmit)="loginProcess()">
         <mat-form-field>
+          <mat-label>Email</mat-label>
           <input matInput placeholder="Email" formControlName="email">
+          <mat-error *ngIf="formGroup.controls">Please enter a valid email address</mat-error>
         </mat-form-field>
         <mat-form-field>
+          <mat-label>Password</mat-label>
           <input matInput type="password" placeholder="Password"
             formControlName="password">
+          <mat-error *ngIf="formGroup.controls">Password must be longer then 8 characters</mat-error>
         </mat-form-field>
         <button mat-raised-button color="primary" type="submit">Login</button>
+        <p style="margin-top: 20px; text-align: center;"> Don't have an account yet?</p>
+        <button mat-raised-button color="secondary" (click)="router.navigate(['/register'])">Register here</button>
       </form>
     </mat-card-content>
   </mat-card>

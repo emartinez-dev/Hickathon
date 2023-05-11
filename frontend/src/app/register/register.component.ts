@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class RegisterComponent {
   formGroup!: FormGroup;
-  constructor(private authService: AuthServiceService, private router: Router ) { }
+  constructor(private authService: AuthServiceService, public router: Router ) { }
   ngOnInit() {
     this.initForm();
   }
@@ -25,6 +25,7 @@ export class RegisterComponent {
   }
   register() {
     this.authService.register(this.formGroup.value).subscribe((data) => { 
+      console.log(data);
       if (data.status == 'ok') {
         alert("Register was succesful");
         this.router.navigate(['/login']); 

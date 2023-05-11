@@ -11,7 +11,7 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class LoginComponent {
   formGroup!: FormGroup;
-  constructor(private authService: AuthServiceService, private router: Router, private cookieService: CookieService) { }
+  constructor(private authService: AuthServiceService, public router: Router, private cookieService: CookieService) { }
   ngOnInit() {
     this.initForm();
   }
