@@ -18,7 +18,7 @@ import {MatSelectModule} from '@angular/material/select';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { ManagerHomeComponent } from './manager-home/manager-home.component';
 import { EmployeeHomeComponent } from './employee-home/employee-home.component';
-
+import {MatTableModule} from '@angular/material/table';
 
 @NgModule({
   declarations: [
@@ -41,7 +41,8 @@ import { EmployeeHomeComponent } from './employee-home/employee-home.component';
     FormsModule,
     ReactiveFormsModule,
     MatSelectModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatTableModule
   ],
   providers: [CookieService],
   bootstrap: [AppComponent]

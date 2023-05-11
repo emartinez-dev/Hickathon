@@ -18,7 +18,7 @@ exports.create = async (req, res) => {
     res.status(404).send({ message: 'User already registered' });
   } else {
     User.create(user).then((data) => {
-      res.status(200).send({ message: 'User created successfully', status: 'ok'});
+      res.status(200).send({ message: 'User created successfully', status: 'ok' });
     }).catch((err) => {
       res.status(500).send({
         message: err.message || 'Error creating User',
@@ -137,7 +137,7 @@ exports.login = async (req, res) => {
   const user = await User.findAll({ where: { email, password } });
   req.cookies = {};
   if (user.length > 0) {
-    res.status(200).send({ message: 'User logged in succesfully', role: user[0].role });
+    res.status(200).send({ message: 'User logged in succesfully', role: user[0].role, id: user[0].id });
   } else {
     res.status(404).send({ message: 'User not found', role: null });
   }

@@ -24,15 +24,16 @@ export class LoginComponent {
   loginProcess() {
     if (this.formGroup.valid){
       this.authService.login(this.formGroup.value).subscribe((data) => {
+        if (data.role) {
+          this.cookieService.set('loged-in', 'true');
+          this.cookieService.set('id', data.id);
+          this.cookieService.set('role', data.role);
+        }
         if (data.role == 'manager') {
           alert("Welcome Manager");
           this.router.navigate(['/manager']);
-          this.cookieService.set('role', 'manager');
-          this.cookieService.set('loged-in', 'true');
         } else if (data.role == 'employee'){
           this.router.navigate(['/employee']);
-          this.cookieService.set('role', 'employee');
-          this.cookieService.set('loged-in', 'true');
         } else {
           alert("Login Failed");
         }
