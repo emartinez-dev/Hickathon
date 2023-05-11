@@ -16,13 +16,17 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
 import {MatSelectModule} from '@angular/material/select';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { ManagerHomeComponent } from './manager-home/manager-home.component';
+import { EmployeeHomeComponent } from './employee-home/employee-home.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     RegisterComponent,
-    LoginComponent
+    LoginComponent,
+    ManagerHomeComponent,
+    EmployeeHomeComponent
   ],
   imports: [
     BrowserModule,
