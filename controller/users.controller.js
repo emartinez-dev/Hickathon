@@ -2,7 +2,7 @@ const db = require('../models');
 
 const User = db.users;
 
-exports.create = (req, res) => {
+exports.create = async (req, res) => {
   const user = {
     email: req.body.email,
     password: req.body.password,
@@ -11,17 +11,22 @@ exports.create = (req, res) => {
     role: req.body.role,
     remainingDays: req.body.remainingDays,
   };
-  User.create(user).then((data) => {
-    res.send(data);
-  }).catch((err) => {
-    res.status(500).send({
-      message: err.message || 'Error creating User',
+  const exists = await User.findAll({ where: { email: user.email } });
+  if (exists.length > 0) {
+    res.status(200).send({ message: 'User already registered' });
+  } else {
+    User.create(user).then((data) => {
+      res.send(data);
+    }).catch((err) => {
+      res.status(500).send({
+        message: err.message || 'Error creating User',
+      });
     });
-  });
+  }
 };
 
-exports.findAll = (req, res) => {
-  User.findAll().then((data) => {
+exports.findAll = async (req, res) => {
+  await User.findAll().then((data) => {
     res.send(data);
   }).catch((err) => {
     res.status(500).send({
@@ -30,10 +35,10 @@ exports.findAll = (req, res) => {
   });
 };
 
-exports.findOne = (req, res) => {
+exports.findOne = async (req, res) => {
   const { id } = req.params;
 
-  User.findByPk(id)
+  await User.findByPk(id)
     .then((data) => {
       if (data) {
         res.send(data);
@@ -49,7 +54,7 @@ exports.findOne = (req, res) => {
     });
 };
 
-exports.findParams = (req, res) => {
+exports.findParams = async (req, res) => {
   const {
     email,
     firstName,
@@ -65,7 +70,7 @@ exports.findParams = (req, res) => {
   if (role) { whereObj.role = role; }
   if (remainingDays) { whereObj.remainingDays = remainingDays; }
 
-  User.findAll({
+  await User.findAll({
     where: whereObj,
   })
     .then((data) => {
@@ -83,7 +88,7 @@ exports.findParams = (req, res) => {
     });
 };
 
-exports.update = (req, res) => {
+exports.update = async (req, res) => {
   const { id } = req.params;
   const {
     email, firstName, password, lastName, role, remainingDays,
@@ -93,7 +98,7 @@ exports.update = (req, res) => {
   if (!user) {
     return res.status(404).json({ message: 'User not found' });
   }
-  User.update(
+  await User.update(
     {
       email, firstName, password, lastName, role, remainingDays,
     },
@@ -102,10 +107,10 @@ exports.update = (req, res) => {
   return res.status(200).json({ message: 'User updated succesfully' });
 };
 
-exports.delete = (req, res) => {
+exports.delete = async (req, res) => {
   const { id } = req.params;
 
-  User.destroy({
+  await User.destroy({
     where: { id },
   }).then((num) => {
     if (num === 1) {

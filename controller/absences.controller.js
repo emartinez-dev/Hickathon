@@ -2,14 +2,14 @@ const db = require('../models');
 
 const Absence = db.absences;
 
-exports.create = (req, res) => {
+exports.create = async (req, res) => {
   const absence = {
     startDate: req.body.startDate,
     endDate: req.body.endDate,
     workingDays: req.body.workingDays,
     status: req.body.status,
   };
-  Absence.create(absence).then((data) => {
+  await Absence.create(absence).then((data) => {
     res.send(data);
   }).catch((err) => {
     res.status(500).send({
@@ -18,8 +18,8 @@ exports.create = (req, res) => {
   });
 };
 
-exports.findAll = (req, res) => {
-  Absence.findAll().then((data) => {
+exports.findAll = async (req, res) => {
+  await Absence.findAll().then((data) => {
     res.send(data);
   }).catch((err) => {
     res.status(500).send({
@@ -28,10 +28,10 @@ exports.findAll = (req, res) => {
   });
 };
 
-exports.findOne = (req, res) => {
+exports.findOne = async (req, res) => {
   const { id } = req.params;
 
-  Absence.findByPk(id)
+  await Absence.findByPk(id)
     .then((data) => {
       if (data) {
         res.send(data);
@@ -47,7 +47,7 @@ exports.findOne = (req, res) => {
     });
 };
 
-exports.findParams = (req, res) => {
+exports.findParams = async (req, res) => {
   const {
     startDate,
     endDate,
@@ -61,7 +61,7 @@ exports.findParams = (req, res) => {
   if (status) { whereObj.status = status; }
   if (userId) { whereObj.userId = userId; }
 
-  Absence.findAll({
+  await Absence.findAll({
     where: whereObj,
   })
     .then((data) => {
@@ -79,17 +79,17 @@ exports.findParams = (req, res) => {
     });
 };
 
-exports.update = (req, res) => {
+exports.update = async (req, res) => {
   const { id } = req.params;
   const {
     startDate, endDate, workingDays, status,
   } = req.body;
 
-  const user = Absence.findByPk(id);
+  const user = await Absence.findByPk(id);
   if (!user) {
     return res.status(404).json({ message: 'Absence not found' });
   }
-  Absence.update(
+  await Absence.update(
     {
       startDate, endDate, workingDays, status,
     },
@@ -98,10 +98,10 @@ exports.update = (req, res) => {
   return res.status(200).json({ message: 'Absence updated succesfully' });
 };
 
-exports.delete = (req, res) => {
+exports.delete = async (req, res) => {
   const { id } = req.params;
 
-  Absence.destroy({
+  await Absence.destroy({
     where: { id },
   }).then((num) => {
     if (num === 1) {
