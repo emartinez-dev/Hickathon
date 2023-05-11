@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthServiceService } from '../auth-service.service';
+import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-login',
@@ -9,7 +11,7 @@ import { AuthServiceService } from '../auth-service.service';
 })
 export class LoginComponent {
   formGroup!: FormGroup;
-  constructor(private authService: AuthServiceService) { }
+  constructor(private authService: AuthServiceService, private router: Router, private cookieService: CookieService) { }
   ngOnInit() {
     this.initForm();
   }
@@ -22,8 +24,15 @@ export class LoginComponent {
   loginProcess() {
     if (this.formGroup.valid){
       this.authService.login(this.formGroup.value).subscribe((data) => {
-        if (data.role) {
-          alert("Login Successful");
+        if (data.role == 'manager') {
+          alert("Welcome Manager");
+          this.router.navigate(['/manager']);
+          this.cookieService.set('role', 'manager');
+          this.cookieService.set('loged-in', 'true');
+        } else if (data.role == 'employee'){
+          this.router.navigate(['/employee']);
+          this.cookieService.set('role', 'employee');
+          this.cookieService.set('loged-in', 'true');
         } else {
           alert("Login Failed");
         }

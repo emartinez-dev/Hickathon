@@ -18,7 +18,7 @@ exports.create = async (req, res) => {
     res.status(404).send({ message: 'User already registered' });
   } else {
     User.create(user).then((data) => {
-      res.send(data);
+      res.status(200).send({ message: 'User created successfully', status: 'ok'});
     }).catch((err) => {
       res.status(500).send({
         message: err.message || 'Error creating User',
