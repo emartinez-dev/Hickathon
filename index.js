@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const db = require('./models');
 
 const app = express();
@@ -10,11 +11,11 @@ app.use(
   bodyParser.urlencoded({
     extended: true,
   }),
+  express.static('./frontend/dist/frontend'),
+  cors(),
 );
 
-app.use(express.static('./frontend/dist/frontend'));
-
-db.sequelize.sync({force: false}).then(() => {
+db.sequelize.sync({ force: false }).then(() => {
   console.log('Sync OK');
 }).catch((err) => {
   console.log('Sync failed: %s', err);
