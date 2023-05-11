@@ -1,6 +1,8 @@
+const crypto = require('crypto');
 const db = require('../models');
 
 const User = db.users;
+const sha256 = (x) => crypto.createHash('sha256').update(x, 'utf-8').digest('hex');
 
 exports.create = async (req, res) => {
   const user = {
@@ -13,7 +15,7 @@ exports.create = async (req, res) => {
   };
   const exists = await User.findAll({ where: { email: user.email } });
   if (exists.length > 0) {
-    res.status(200).send({ message: 'User already registered' });
+    res.status(404).send({ message: 'User already registered' });
   } else {
     User.create(user).then((data) => {
       res.send(data);
@@ -127,4 +129,16 @@ exports.delete = async (req, res) => {
       message: `Could not delete User with id=${id}`,
     });
   });
+};
+
+exports.login = async (req, res) => {
+  const { email } = req.body;
+  const password = sha256(req.body.password);
+  const user = await User.findAll({ where: { email, password } });
+  req.cookies = {};
+  if (user.length > 0) {
+    res.status(200).send({ message: 'User logged in succesfully', role: user[0].role });
+  } else {
+    res.status(404).send({ message: 'User not found', role: null });
+  }
 };
