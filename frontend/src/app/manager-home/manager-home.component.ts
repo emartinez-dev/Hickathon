@@ -2,9 +2,19 @@ import { Component, OnInit, OnChanges } from '@angular/core';
 import { ManagerService } from '../manager.service';
 
 export interface Absence {
-  startDate: string;
+  startDate: Date;
+  endDate: Date;
   status: string;
+  userName: string;
 }
+
+const DATA: Absence[] = [
+  {startDate: new Date(), endDate: new Date(), status: 'Pending', userName: 'Enrique'},
+  {startDate: new Date(), endDate: new Date(), status: 'Pending', userName: 'Enrique'},
+  {startDate: new Date(), endDate: new Date(), status: 'Pending', userName: 'Enrique'},
+  {startDate: new Date(), endDate: new Date(), status: 'Pending', userName: 'Enrique'},
+  {startDate: new Date(), endDate: new Date(), status: 'Pending', userName: 'Enrique'},
+]
 
 @Component({
   selector: 'app-manager-home',
@@ -14,12 +24,14 @@ export interface Absence {
 
 export class ManagerHomeComponent {
   absencesTable: any;
-  displayedColumns: string[] = ['startDate', 'endDate', 'status'];
-  dataSource = [];
+  displayedColumns: string[] = ['startDate', 'endDate', 'status', 'userName', 'button'];
+  absencesPending = DATA;
+  /*
   constructor(private managerService: ManagerService) {
     this.managerService.getAbsences().subscribe((data) => {
       console.log(data);
-      this.dataSource = data;
+      this.absencesPending = data;
     });
   };
+    */
 }
