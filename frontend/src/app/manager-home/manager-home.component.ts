@@ -20,6 +20,7 @@ export class ManagerHomeComponent {
   displayedColumns: string[] = ['startDate', 'endDate', 'status', 'userId', 'button'];
   absencesPending: any;
   userData: any;
+  userColumns: string[] = ['firstName', 'lastName', 'email', 'remainingDays', 'button' ];
 
   constructor(private managerService: ManagerService) {
     this.managerService.getAbsences().subscribe((data) => {
@@ -30,6 +31,9 @@ export class ManagerHomeComponent {
           absence.userId = user.firstName + ' ' + user.lastName;
         })
       })
+    })
+    this.managerService.getEmployees().subscribe((data) => {
+      this.userData = data;
     })
   };
 
@@ -55,5 +59,9 @@ export class ManagerHomeComponent {
     this.managerService.declineAbsence(absence).subscribe(response => {
       this.absencesTable.data = this.getAllAbsences();
     })
+  }
+
+  editUser(user: any) {
+    console.log(user);
   }
 }

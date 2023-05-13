@@ -32,4 +32,7 @@ export class ManagerService {
     const url = baseURL + '/api/absences/' + absence.id;
     return this.http.put(url, body);
   }
+  getEmployees(): Observable<any> {
+    return this.http.post(baseURL + '/api/users/find', {role: 'employee'});
+  }
 }
