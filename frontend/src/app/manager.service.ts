@@ -19,4 +19,17 @@ export class ManagerService {
       return this.http.get(baseURL);
     }
   }
+  getUser(userId: string): Observable<any> {
+    return this.http.get(baseURL + '/api/users/' + userId);
+  }
+  acceptAbsence(absence: any): Observable<any> {
+    const body = {status: 'accepted'};
+    const url = baseURL + '/api/absences/' + absence.id;
+    return this.http.put(url, body);
+  }
+  declineAbsence(absence: any): Observable<any> {
+    const body = {status: 'denied'};
+    const url = baseURL + '/api/absences/' + absence.id;
+    return this.http.put(url, body);
+  }
 }

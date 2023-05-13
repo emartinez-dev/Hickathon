@@ -1,20 +1,13 @@
 import { Component, OnInit, OnChanges } from '@angular/core';
 import { ManagerService } from '../manager.service';
+import { filter } from 'rxjs';
 
 export interface Absence {
   startDate: Date;
   endDate: Date;
   status: string;
-  userName: string;
+  userId: string;
 }
-
-const DATA: Absence[] = [
-  {startDate: new Date(), endDate: new Date(), status: 'Pending', userName: 'Enrique'},
-  {startDate: new Date(), endDate: new Date(), status: 'Pending', userName: 'Enrique'},
-  {startDate: new Date(), endDate: new Date(), status: 'Pending', userName: 'Enrique'},
-  {startDate: new Date(), endDate: new Date(), status: 'Pending', userName: 'Enrique'},
-  {startDate: new Date(), endDate: new Date(), status: 'Pending', userName: 'Enrique'},
-]
 
 @Component({
   selector: 'app-manager-home',
@@ -24,14 +17,43 @@ const DATA: Absence[] = [
 
 export class ManagerHomeComponent {
   absencesTable: any;
-  displayedColumns: string[] = ['startDate', 'endDate', 'status', 'userName', 'button'];
-  absencesPending = DATA;
-  /*
+  displayedColumns: string[] = ['startDate', 'endDate', 'status', 'userId', 'button'];
+  absencesPending: any;
+  userData: any;
+
   constructor(private managerService: ManagerService) {
     this.managerService.getAbsences().subscribe((data) => {
-      console.log(data);
+      data = data.filter((absence: Absence) => absence.status === 'pending');
       this.absencesPending = data;
-    });
+      this.absencesPending.map((absence: Absence) => {
+        this.managerService.getUser(absence.userId).subscribe((user) => {
+          absence.userId = user.firstName + ' ' + user.lastName;
+        })
+      })
+    })
   };
-    */
+
+  getAllAbsences() {
+    this.managerService.getAbsences().subscribe((data) => {
+      this.absencesPending = data;
+      this.absencesPending.map((absence: Absence) => {
+        this.managerService.getUser(absence.userId).subscribe((user) => {
+          absence.userId = user.firstName + ' ' + user.lastName;
+        })
+      })
+      return data;
+    })
+  }
+
+  acceptAbsence(absence: Absence) {
+  this.managerService.acceptAbsence(absence).subscribe(response => {
+      this.absencesTable.data = this.getAllAbsences();
+    })
+  }
+
+  declineAbsence(absence: Absence) {
+    this.managerService.declineAbsence(absence).subscribe(response => {
+      this.absencesTable.data = this.getAllAbsences();
+    })
+  }
 }

@@ -8,6 +8,7 @@ exports.create = async (req, res) => {
     endDate: req.body.endDate,
     workingDays: req.body.workingDays,
     status: req.body.status,
+    userId: req.body.userId,
   };
   await Absence.create(absence).then((data) => {
     res.send(data);
