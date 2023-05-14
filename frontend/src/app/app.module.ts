@@ -16,7 +16,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
 import {MatSelectModule} from '@angular/material/select';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { EditUserDialog, ManagerHomeComponent } from './manager-home/manager-home.component';
+import { EditUserDialog, ManagerHomeComponent, NewUserDialog } from './manager-home/manager-home.component';
 import { EmployeeHomeComponent } from './employee-home/employee-home.component';
 import {MatTableModule} from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
@@ -29,7 +29,8 @@ import {MatDialogModule} from '@angular/material/dialog';
     LoginComponent,
     ManagerHomeComponent,
     EmployeeHomeComponent,
-    EditUserDialog
+    EditUserDialog,
+    NewUserDialog
   ],
   imports: [
     BrowserModule,

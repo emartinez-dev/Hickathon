@@ -32,7 +32,11 @@ export class ManagerService {
     const url = baseURL + '/api/absences/' + absence.id;
     return this.http.put(url, body);
   }
-
+  updateRemainingDays(userId: any, absence: any): Observable<any> {
+    const body = {remainingDays: absence.user.remainingDays + absence.workingDays};
+    const url = baseURL + '/api/users/' + userId;
+    return this.http.put(url, body);
+  }
   deleteAbsence(absenceId: number): Observable<any> {
     return this.http.delete(baseURL + '/api/absences/' + absenceId);
   }

@@ -5,3 +5,7 @@ th.mat-mdc-header-cell {
 td.mat-mdc-cell {
   text-align: center;
 }
+
+.spacer {
+  flex: 1 1 auto;
+}
