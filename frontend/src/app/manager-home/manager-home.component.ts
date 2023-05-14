@@ -27,7 +27,7 @@ export interface User {
 
 export class ManagerHomeComponent {
   absencesTable: any;
-  displayedColumns: string[] = ['startDate', 'endDate', 'status', 'userId', 'button'];
+  displayedColumns: string[] = ['startDate', 'endDate', 'status', 'fullName', 'button'];
   absencesPending: any;
   userData: any;
   userColumns: string[] = ['firstName', 'lastName', 'email', 'remainingDays', 'button' ];
@@ -36,11 +36,6 @@ export class ManagerHomeComponent {
     this.managerService.getAbsences().subscribe((data) => {
       data = data.filter((absence: Absence) => absence.status === 'pending');
       this.absencesPending = data;
-      this.absencesPending.map((absence: Absence) => {
-        this.managerService.getUser(absence.userId).subscribe((user) => {
-          absence.userId = user.firstName + ' ' + user.lastName;
-        })
-      })
     })
     this.managerService.getEmployees().subscribe((data) => {
       this.userData = data;
@@ -50,11 +45,6 @@ export class ManagerHomeComponent {
   getAllAbsences() {
     this.managerService.getAbsences().subscribe((data) => {
       this.absencesPending = data;
-      this.absencesPending.map((absence: Absence) => {
-        this.managerService.getUser(absence.userId).subscribe((user) => {
-          absence.userId = user.firstName + ' ' + user.lastName;
-        })
-      })
       return data;
     })
   }

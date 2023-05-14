@@ -19,4 +19,8 @@ db.users.hasMany(db.absences, {
   foreignKey: 'userId',
 });
 
+db.absences.belongsTo(db.users, {
+  foreignKey: 'userId',
+});
+
 module.exports = db;

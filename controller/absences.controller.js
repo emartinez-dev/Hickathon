@@ -20,7 +20,7 @@ exports.create = async (req, res) => {
 };
 
 exports.findAll = async (req, res) => {
-  await Absence.findAll().then((data) => {
+  await Absence.findAll({ include: [{ model: db.users }] }).then((data) => {
     res.send(data);
   }).catch((err) => {
     res.status(500).send({
