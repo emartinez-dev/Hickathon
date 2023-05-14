@@ -6,7 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RegisterComponent } from './register/register.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatError, MatFormFieldModule } from '@angular/material/form-field';
+import { MatError, MatFormFieldModule, MatLabel } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule, MatIconButton } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -16,10 +16,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
 import {MatSelectModule} from '@angular/material/select';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { ManagerHomeComponent } from './manager-home/manager-home.component';
+import { EditUserDialog, ManagerHomeComponent } from './manager-home/manager-home.component';
 import { EmployeeHomeComponent } from './employee-home/employee-home.component';
 import {MatTableModule} from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
+import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { MatIconModule } from '@angular/material/icon';
     RegisterComponent,
     LoginComponent,
     ManagerHomeComponent,
-    EmployeeHomeComponent
+    EmployeeHomeComponent,
+    EditUserDialog
   ],
   imports: [
     BrowserModule,
@@ -45,6 +47,7 @@ import { MatIconModule } from '@angular/material/icon';
     MatToolbarModule,
     MatTableModule,
     MatIconModule,
+    MatDialogModule,
   ],
   providers: [CookieService],
   bootstrap: [AppComponent]

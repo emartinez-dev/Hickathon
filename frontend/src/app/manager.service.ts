@@ -32,7 +32,20 @@ export class ManagerService {
     const url = baseURL + '/api/absences/' + absence.id;
     return this.http.put(url, body);
   }
+
+  deleteAbsence(absenceId: number): Observable<any> {
+    return this.http.delete(baseURL + '/api/absences/' + absenceId);
+  }
+
   getEmployees(): Observable<any> {
     return this.http.post(baseURL + '/api/users/find', {role: 'employee'});
+  }
+
+  deleteUser(userId: string): Observable<any> {
+    return this.http.delete(baseURL + '/api/users/' + userId);
+  }
+
+  updateUser(user: any, body: any): Observable<any> {
+    return this.http.put(baseURL + '/api/users/' + user.id, body);
   }
 }

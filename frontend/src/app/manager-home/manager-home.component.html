@@ -37,6 +37,9 @@
             <button mat-icon-button color="warn" (click)="declineAbsence(element)">
               <mat-icon>close</mat-icon>
             </button>
+            <button mat-icon-button color="warn" (click)="deleteAbsence(element)">
+              <mat-icon>remove_circle</mat-icon>
+            </button>
           </td>
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
