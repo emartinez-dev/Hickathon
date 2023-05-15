@@ -17,10 +17,13 @@ import { CookieService } from 'ngx-cookie-service';
 import {MatSelectModule} from '@angular/material/select';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { EditUserDialog, ManagerHomeComponent, NewUserDialog } from './manager-home/manager-home.component';
-import { EmployeeHomeComponent } from './employee-home/employee-home.component';
+import { CreateAbsenceDialog, EditAbsenceDialog, EmployeeHomeComponent } from './employee-home/employee-home.component';
 import {MatTableModule} from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -30,7 +33,9 @@ import {MatDialogModule} from '@angular/material/dialog';
     ManagerHomeComponent,
     EmployeeHomeComponent,
     EditUserDialog,
-    NewUserDialog
+    NewUserDialog,
+    EditAbsenceDialog,
+    CreateAbsenceDialog
   ],
   imports: [
     BrowserModule,
@@ -49,8 +54,11 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatTableModule,
     MatIconModule,
     MatDialogModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
-  providers: [CookieService],
+  providers: [CookieService
+  , {provide: MAT_DATE_LOCALE, useValue: 'en-GB'}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

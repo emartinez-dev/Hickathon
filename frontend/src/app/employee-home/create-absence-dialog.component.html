@@ -1,0 +1,29 @@
+<div fxFlex="grow" style="width: 500px;">
+  <mat-card>
+    <mat-toolbar color="primary" fxLayoutAlign="center center">
+      <span>Create absence</span>
+    </mat-toolbar>
+    <mat-card-header fxLayoutAlign="center center">
+    </mat-card-header>
+    <mat-card-content>
+      <form fxLayout="column" [formGroup]="formGroup"
+        (ngSubmit)="createAbsence()">
+        <mat-form-field appearance="fill">
+          <mat-label>Choose start date</mat-label>
+          <input matInput [min]="minDate" [max]="maxDate"
+            [matDatepicker]="picker1" formControlName="startDate">
+          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+          <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Choose end date</mat-label>
+          <input matInput [min]="minDate" [max]="maxDate" formControlName="endDate"
+            [matDatepicker]="picker2">
+          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
+        <button mat-raised-button color="primary" type="submit">Register</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

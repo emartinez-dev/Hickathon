@@ -1,1 +1,57 @@
-<p>employee-home works!</p>
+<mat-toolbar color="accent">Employee dashboard</mat-toolbar>
+<mat-toolbar>
+  <span>Absences</span>
+  <span class="spacer"></span>
+  <button mat-raised-button color="accent"
+    (click)="createAbsence()">New absence</button>
+</mat-toolbar>
+<div>
+  <mat-card>
+    <mat-card-header>
+    </mat-card-header>
+    <mat-card-content>
+      <table mat-table [dataSource]="absencesTable" class="mat-elevation-z8">
+        <ng-container matColumnDef="startDate">
+          <th mat-header-cell *matHeaderCellDef>Start date</th>
+          <td mat-cell *matCellDef="let element"> {{element.startDate |
+            date:'dd/MM/YYYY'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="endDate">
+          <th mat-header-cell *matHeaderCellDef>End date</th>
+          <td mat-cell *matCellDef="let element"> {{element.endDate |
+            date:'dd/MM/YYYY'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="workingDays">
+          <th mat-header-cell *matHeaderCellDef>Absence days</th>
+          <td mat-cell *matCellDef="let element"> {{element.workingDays }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef>Status</th>
+          <td mat-cell *matCellDef="let element"> {{element.status | titlecase}}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="fullName">
+          <th mat-header-cell *matHeaderCellDef>Employee name</th>
+          <td mat-cell *matCellDef="let element"> {{element.user.fullName |
+            titlecase}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="button">
+          <th mat-header-cell *matHeaderCellDef>Action</th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-icon-button color="primary"
+              (click)="editAbsence(element)">
+              <mat-icon>edit</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </mat-card-content>
+  </mat-card>
+</div>
